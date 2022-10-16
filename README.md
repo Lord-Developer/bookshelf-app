@@ -11,7 +11,7 @@ POST https://go-bookshelf-app.herokuapp.com/signup
 
 
 
-!!! Headerda key va signni berish shart aks holda ma'lumot qaytarmaydi chunki user authenticate qiladi berilgan ma'lumot orqali!
+!!! Headerda key va signni berish shart aks holda ma'lumot qaytarmaydi chunki user authenticate qiladi berilgan ma'lumot orqali! Bu yerda sign userdagi secret propertysi
 
 My Self
 GET https://go-bookshelf-app.herokuapp.com/myself/{id}
