@@ -393,16 +393,16 @@ func (r *Repository) check(context *fiber.Ctx) error {
 }
 
 func (r *Repository) SetupRoutes(app *fiber.App) {
-	api := app
-	api.Get("/test", r.check)
-	api.Post("/signup", r.CreateUser)
-	api.Get("/myself/:id", r.GetUserInfo)
+	api := app.Group("/")
+	api.Get("test", r.check)
+	api.Post("signup", r.CreateUser)
+	api.Get("myself/:id", r.GetUserInfo)
 	api.Post("books", r.CreateBook)
 	api.Delete("books/:id", r.DeleteBook)
 	api.Patch("books/:id", r.UpdateBookStatus)
-	api.Get(("/books/:isbn"), r.GetBookByISBN)
-	api.Get("/book_by_id/:id", r.GetBookByID)
-	api.Get("/books", r.GetBooks)
+	api.Get(("books/:isbn"), r.GetBookByISBN)
+	api.Get("book_by_id/:id", r.GetBookByID)
+	api.Get("books", r.GetBooks)
 }
 
 func main() {
@@ -435,28 +435,11 @@ func main() {
 	}
 	app := fiber.New()
 	r.SetupRoutes(app)
-	app.Listen(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":5000"
+
+	}
+	log.Printf("Listening on port %s\n\n", port)
+	app.Listen(port)
 }
-
-// func SetupDatabaseConnection() *gorm.DB {
-// 	// errEnv := godotenv.Load()
-// 	// if errEnv != nil {
-// 	// 	panic("Failed to load env file. Make sure .env file is exists!")
-// 	// }
-
-// 	dbUser := os.Getenv("DB_USER")
-// 	dbPass := os.Getenv("DB_PASSWORD")
-// 	dbHost := os.Getenv("DB_HOST")
-// 	dbName := os.Getenv("DB_NAME")
-// 	dbPort := os.Getenv("DB_PORT")
-
-// 	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s sslmode=require TimeZone=Asia/Shanghai", dbHost, dbUser, dbPass, dbPort, dbName)
-// 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-// 	if err != nil {
-// 		panic("Failed to create a connection to database")
-// 	}
-
-// 	db.AutoMigrate(&models.Users{}, &models.Books{})
-// 	println("Database connected!")
-// 	return db
-// }
