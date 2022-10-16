@@ -421,7 +421,7 @@ func main() {
 	}
 
 	db, err := storage.NewConnection(config)
-
+	//
 	if err != nil {
 		log.Fatal("could not load the database")
 	}
