@@ -9,7 +9,6 @@ import (
 	"github.com/Lord-Developer/bookshelf-app/models"
 	"github.com/Lord-Developer/bookshelf-app/storage"
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 )
 
@@ -407,10 +406,10 @@ func (r *Repository) SetupRoutes(app *fiber.App) {
 }
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	config := &storage.Config{
 		Host:     os.Getenv("DB_HOST"),
 		Port:     os.Getenv("DB_PORT"),
@@ -438,3 +437,26 @@ func main() {
 	r.SetupRoutes(app)
 	app.Listen(":8080")
 }
+
+// func SetupDatabaseConnection() *gorm.DB {
+// 	// errEnv := godotenv.Load()
+// 	// if errEnv != nil {
+// 	// 	panic("Failed to load env file. Make sure .env file is exists!")
+// 	// }
+
+// 	dbUser := os.Getenv("DB_USER")
+// 	dbPass := os.Getenv("DB_PASSWORD")
+// 	dbHost := os.Getenv("DB_HOST")
+// 	dbName := os.Getenv("DB_NAME")
+// 	dbPort := os.Getenv("DB_PORT")
+
+// 	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s sslmode=require TimeZone=Asia/Shanghai", dbHost, dbUser, dbPass, dbPort, dbName)
+// 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+// 	if err != nil {
+// 		panic("Failed to create a connection to database")
+// 	}
+
+// 	db.AutoMigrate(&models.Users{}, &models.Books{})
+// 	println("Database connected!")
+// 	return db
+// }
