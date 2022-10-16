@@ -440,5 +440,5 @@ func main() {
 		port = "5000"
 
 	}
-	app.Listen(port)
+	app.Listen(":" + port)
 }
